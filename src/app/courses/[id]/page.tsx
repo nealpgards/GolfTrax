@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
+import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 
 // This would normally be fetched from an API based on the course ID
 const getCourseData = (id: string) => {
@@ -46,8 +47,9 @@ const getCourseData = (id: string) => {
   };
 };
 
-export default function CourseDetailPage({ params }: { params: { id: string } }) {
-  const courseData = getCourseData(params.id);
+export default function CourseDetailPage({ params }: { params: Params }) {
+  const courseId = params.id as string;
+  const courseData = getCourseData(courseId);
   const [activeTab, setActiveTab] = useState('overview');
   
   return (
@@ -224,7 +226,7 @@ export default function CourseDetailPage({ params }: { params: { id: string } })
                       </div>
                     ) : (
                       <div className="text-center py-4">
-                        <p className="text-gray-600 mb-4">You haven't played this course yet</p>
+                        <p className="text-gray-600 mb-4">You have not played this course yet</p>
                         <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
                           Add to Played
                         </button>
@@ -413,7 +415,7 @@ export default function CourseDetailPage({ params }: { params: { id: string } })
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <p className="text-gray-600 mb-4">You haven't played this course yet</p>
+                  <p className="text-gray-600 mb-4">You have not played this course yet</p>
                   <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
                     Add First Round
                   </button>
